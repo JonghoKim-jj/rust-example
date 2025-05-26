@@ -1,4 +1,4 @@
-use std::{default, fmt::Display, vec};
+use std::{default, vec};
 
 fn double_vector_i32(input: Vec<i32>) -> Vec<i32> {
     let n = input.len();
@@ -18,7 +18,7 @@ fn double_vector<T: Default + Clone>(input: Vec<T>) -> Vec<T> {
     let mut result = Vec::with_capacity(2 * n);
     result.resize(2 * n, T::default());
 
-    for (idx, item) in input.into_iter().enumerate() {
+    for (idx, item) in input.iter().enumerate() {
         result[idx] = item.clone();
         result[n + idx] = item.clone();
     }
