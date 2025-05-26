@@ -1,3 +1,4 @@
 /target
 .vscode/*
 !.vscode/tasks.json.example
+!.vscode/launch.json.example
