@@ -23,11 +23,10 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
     fn test3() {
         let e = 1;
         let f = 2;
 
-        assert_eq!(add_two_integers(e, f), 4);
+        assert_ne!(add_two_integers(e, f), 4);
     }
 }
