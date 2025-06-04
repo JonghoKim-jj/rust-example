@@ -8,6 +8,7 @@ mod example301;
 mod example302;
 mod example303;
 mod example304;
+mod example602;
 
 fn main() {
     println!("Hello, world!");
