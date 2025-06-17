@@ -12,6 +12,13 @@ mod example305;
 mod example401;
 mod example402;
 mod example403;
+mod example404;
+mod example405;
+mod example501;
+mod example502;
+mod example503;
+mod example504;
+mod example505;
 mod example601;
 
 fn main() {
