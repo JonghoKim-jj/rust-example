@@ -23,6 +23,7 @@ mod example601;
 mod example602;
 mod example603;
 mod example604;
+mod example605;
 
 fn main() {
     println!("Hello, world!");
