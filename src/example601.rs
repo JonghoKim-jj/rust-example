@@ -1,16 +1,9 @@
-fn final_value(operations: &[&str]) -> Result<i32, &'static str> {
-    if !(1..=100).contains(&operations.len()) {
-        return Err("Length of *operations* must be between 1 and 100");
-    }
-
-    operations
-        .iter()
-        .try_fold(0, |x, &op| match op {
-            "++X" | "X++" => Some(x + 1),
-            "--X" | "X--" => Some(x - 1),
-            _ => None,
-        })
-        .ok_or("Operation must be among ++X, X++, --X, X--")
+fn final_value(operations: &[&str]) -> Option<i32> {
+    operations.iter().try_fold(0, |x, &op| match op {
+        "++X" | "X++" => Some(x + 1),
+        "--X" | "X--" => Some(x - 1),
+        _ => None,
+    })
 }
 
 #[cfg(test)]
@@ -22,7 +15,7 @@ mod tests {
         let operations = vec!["--X", "X++", "X++"];
         let result = final_value(&operations);
 
-        assert_eq!(result, Ok(1));
+        assert_eq!(result, Some(1));
     }
 
     #[test]
@@ -30,7 +23,7 @@ mod tests {
         let operations = vec!["++X", "++X", "X++"];
         let result = final_value(&operations);
 
-        assert_eq!(result, Ok(3));
+        assert_eq!(result, Some(3));
     }
 
     #[test]
@@ -38,7 +31,7 @@ mod tests {
         let operations = vec!["X++", "++X", "--X", "X--"];
         let result = final_value(&operations);
 
-        assert_eq!(result, Ok(0));
+        assert_eq!(result, Some(0));
     }
 
     #[test]
@@ -46,7 +39,7 @@ mod tests {
         let operations = vec![];
         let result = final_value(&operations);
 
-        assert!(result.is_err());
+        assert!(result.is_some_and(|x| x == 0));
     }
 
     #[test]
@@ -56,14 +49,13 @@ mod tests {
         let result1 = final_value(&operations1);
         let result2 = final_value(&operations2);
 
-        assert!(result1.is_ok());
-        assert!(result2.is_err());
-        assert_eq!(result1, Ok(100));
+        assert!(result1.is_some_and(|x| x == 100));
+        assert!(result2.is_some_and(|x| x == 101));
     }
 
     #[test]
     fn test_6() {
         let operations = vec!["Y++", "----X"];
-        assert!(final_value(&operations).is_err());
+        assert!(final_value(&operations).is_none());
     }
 }
